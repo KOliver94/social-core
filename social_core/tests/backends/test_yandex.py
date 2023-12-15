@@ -1,4 +1,4 @@
-import json
+import responses
 
 from .oauth import OAuth2Test
 
@@ -7,21 +7,21 @@ class YandexOAuth2Test(OAuth2Test):
     backend_path = "social_core.backends.yandex.YandexOAuth2"
     user_data_url = "https://login.yandex.ru/info"
     expected_username = "foobar"
-    access_token_body = json.dumps({"access_token": "foobar", "token_type": "bearer"})
-    user_data_body = json.dumps(
-        {
-            "display_name": "foobar",
-            "real_name": "Foo Bar",
-            "sex": None,
-            "id": "101010101",
-            "default_email": "foobar@yandex.com",
-            "emails": ["foobar@yandex.com"],
-        }
-    )
+    access_token_body = {"access_token": "foobar", "token_type": "bearer"}
+    user_data_body = {
+        "display_name": "foobar",
+        "real_name": "Foo Bar",
+        "sex": None,
+        "id": "101010101",
+        "default_email": "foobar@yandex.com",
+        "emails": ["foobar@yandex.com"],
+    }
 
+    @responses.activate
     def test_login(self):
         self.do_login()
 
+    @responses.activate
     def test_partial_pipeline(self):
         self.do_partial_pipeline()
 
@@ -35,20 +35,20 @@ class YandexOAuth2TestEmptyEmail(OAuth2Test):
     backend_path = "social_core.backends.yandex.YandexOAuth2"
     user_data_url = "https://login.yandex.ru/info"
     expected_username = "foobar"
-    access_token_body = json.dumps({"access_token": "foobar", "token_type": "bearer"})
-    user_data_body = json.dumps(
-        {
-            "display_name": "foobar",
-            "real_name": "Foo Bar",
-            "sex": None,
-            "id": "101010101",
-            "default_email": "",
-            "emails": [],
-        }
-    )
+    access_token_body = {"access_token": "foobar", "token_type": "bearer"}
+    user_data_body = {
+        "display_name": "foobar",
+        "real_name": "Foo Bar",
+        "sex": None,
+        "id": "101010101",
+        "default_email": "",
+        "emails": [],
+    }
 
+    @responses.activate
     def test_login(self):
         self.do_login()
 
+    @responses.activate
     def test_partial_pipeline(self):
         self.do_partial_pipeline()

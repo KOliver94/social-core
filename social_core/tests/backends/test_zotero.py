@@ -1,5 +1,7 @@
 from urllib.parse import urlencode
 
+import responses
+
 from .oauth import OAuth1Test
 
 
@@ -22,8 +24,10 @@ class ZoteroOAuth1Test(OAuth1Test):
         }
     )
 
+    @responses.activate
     def test_login(self):
         self.do_login()
 
+    @responses.activate
     def test_partial_pipeline(self):
         self.do_partial_pipeline()

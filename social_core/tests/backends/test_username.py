@@ -1,3 +1,5 @@
+import responses
+
 from .legacy import BaseLegacyTest
 
 
@@ -12,8 +14,10 @@ class UsernameTest(BaseLegacyTest):
     </form>
     """
 
+    @responses.activate
     def test_login(self):
         self.do_login()
 
+    @responses.activate
     def test_partial_pipeline(self):
         self.do_partial_pipeline()
